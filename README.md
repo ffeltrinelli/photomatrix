@@ -1,7 +1,7 @@
 # Overview
 
-Simple command-line Python application which concatenates a list of photos into a single photo which
-shows them in a matrix. 
+Simple command-line Python application which concatenates a list of photos into a single photo
+showing them in a matrix. 
 
 # How to build and run
 
@@ -17,14 +17,14 @@ source my_venv/bin/activate
 Install the dev dependencies and the app dependencies into the virtual environment:
 
 ```
-pip install -r requirements_dev.txt
-pip install -e .
+pip3 install -r requirements_dev.txt
+pip3 install -e .
 ```
 
 Run the app like this:
 
 ```
-python -m photomatrix "data/input/*.jpg" data/matrix.jpg
+python3 -m photomatrix "data/input/*.jpg" data/matrix.jpg
 ```
 
 
