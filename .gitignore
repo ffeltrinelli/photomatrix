@@ -1,6 +1,12 @@
-.idea
+# macOS
 .DS_Store
+
+# PyCharm
+.idea
+
+# Python
 venv
 dist
 build
 __pycache__
+photomatrix.egg-info
