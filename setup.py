@@ -7,15 +7,16 @@ setuptools.setup(
     name="photomatrix",
     version="0.0.1",
     author="Francesco Feltrinelli",
-    description="TBD",
+    description="Concat photos together in a matrix",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    # url="https://github.com/pypa/sampleproject",
+    url="https://github.com/ffeltrinelli/photomatrix",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.7",
+        "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
+        "Development Status :: 3 - Alpha"
     ],
     python_requires='>=3.7',
     install_requires=[
