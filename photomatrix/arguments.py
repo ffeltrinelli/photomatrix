@@ -161,7 +161,7 @@ def hexadecimal_color(string_value):
 
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='Concat photos together in a matrix.')
+    parser = argparse.ArgumentParser(prog='photomatrix', description='Concat photos together in a matrix.')
     parser.add_argument('input_images',
                         help='the path to the images to be processed')
     parser.add_argument('output_image',

@@ -6,6 +6,7 @@
 
 # Python
 venv
+my_venv
 dist
 build
 __pycache__
