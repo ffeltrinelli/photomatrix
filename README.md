@@ -6,11 +6,12 @@ showing them in a matrix (in other words, a grid).
 # Installation
 
 First of all, you need [Python](https://www.python.org/) 3.7 or greater installed in your system.
+
 Then, as `photomatrix` is a command line application, open a terminal and be ready to type commands.
 
 ## Install automatically with pip
 
-`photomatrix` is available from the Python Package Index ([PyPI](https://pypi.org/)) so installable
+`photomatrix` is available from the Python Package Index ([PyPI](https://pypi.org/)), so installable
 with [pip](https://pip.pypa.io/):
 
 ```
@@ -25,7 +26,8 @@ photomatrix -h
 
 ## Build locally
 
-Clone this project from Github.
+Alternatively, you can build locally from source code. First, clone this project from Github.
+
 Cd into the root folder.
 
 Create a virtual environment (e.g. named `my_env`) and activate it:
@@ -57,7 +59,7 @@ photomatrix INPUT_IMAGES OUTPUT_IMAGE
 ```
 
 where all the images found in the specified input path will be loaded, sorted, combined in a matrix
-and the resulting image will be written in the specified output path.  
+and the result will be written in the specified output path.  
 
 Further options that you can customize are:
 * Number of rows vs columns
@@ -66,18 +68,17 @@ Further options that you can customize are:
 * Border
 * Text to print (e.g. filename or Exif original date)
 
-See the command help for more info on these options.
+See the command help (with `-h`) for more info on these options.
 
 # Examples
 
 The following examples use these test input images:
 
-![](./data/input/01.jpg | width=200)
-![](./data/input/02.jpg | width=200)
+<img src="data/input/01.jpg?raw=true" width="150">
 
-until
+up to
 
-![](./data/input/12.jpg | width=200)
+<img src="data/input/12.jpg?raw=true" width="150">
 
 ## Matrix with border
 
@@ -89,4 +90,16 @@ photomatrix "data/input/*.jpg" data/output/matrix_border.jpg --border-width-rati
 
 resulting in:
 
-![](./data/output/matrix_border.jpg | width=600)
+<img src="data/output/matrix_border.jpg?raw=true" width="600">
+
+## Matrix sorted and with text
+
+To build a matrix with inverse filename order, printing the filename in top center position:
+
+```
+photomatrix "data/input/*.jpg" data/output/matrix_sort_text.jpg --sort filename_desc --text-type filename --text-position top_center
+```
+
+resulting in:
+
+<img src="data/output/matrix_sort_text.jpg?raw=true" width="600">
