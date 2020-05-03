@@ -15,7 +15,7 @@ def add_text_single(image, text_config):
 
     new_image = image.convert(mode='RGB')
     draw = ImageDraw.Draw(new_image, mode='RGBA')
-    font = get_font(image, text_config.height_ratio, text)
+    font = get_font(image, text_config.height_ratio, text_config.font, text)
     rect_xy = get_text_rect(image, font, text, text_config.position)
     draw.rectangle(rect_xy, fill=(255, 255, 255, text_config.background_opacity))
     draw.text(rect_xy[0], text, fill=text_config.color, font=font)
@@ -23,17 +23,16 @@ def add_text_single(image, text_config):
 
 
 def get_text(image, text_config):
-    if text_config.text_type == TextType.none:
+    if text_config.type == TextType.none:
         return None
     else:
         return {
             TextType.filename: lambda img: os.path.basename(img.filename),
             TextType.date_taken: lambda img: exif.get_date_time_original(img, text_config.date_format)
-        }[text_config.text_type](image)
+        }[text_config.type](image)
 
 
-def get_font(image, height_ratio, text):
-    font_file = "/Library/Fonts/Arial.ttf"
+def get_font(image, height_ratio, font_file, text):
     font_size = 0
     font = None
     font_too_small = True

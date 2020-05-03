@@ -1,9 +1,11 @@
 import argparse
 import glob
+import os
 import re
 from enum import Enum
 from math import ceil, sqrt
 from PIL import Image
+from fonts.ttf import SourceSansProSemibold as DefaultFont
 
 
 class RunConfig:
@@ -48,12 +50,14 @@ class TextConfig:
                  text_type,
                  position,
                  color,
+                 font,
                  background_opacity,
                  date_format,
                  height_ratio):
-        self.text_type = text_type
+        self.type = text_type
         self.position = position
         self.color = color
+        self.font = font
         self.background_opacity = background_opacity
         self.date_format = date_format
         self.height_ratio = height_ratio
@@ -199,6 +203,10 @@ def parse_arguments():
     parser.add_argument('--text-color', type=hexadecimal_color, default="#000000",
                         help='The text color expressed as #rrggbb hexadecimal color string. '
                              'Defaults to black.')
+    parser.add_argument('--text-font', default=DefaultFont,
+                        help='The text font. Must be a TrueType or OpenType font file, either '
+                             'an absolute path or only the filename if located in a system default folder. '
+                             f'Defaults to {os.path.basename(DefaultFont)}')
     parser.add_argument('--text-background-opacity', type=int_range(0, 255), default=0,
                         help='Opacity of the text background, use to make the text more distinguishable. '
                              'Must be between 0 and 255. Defaults to 0, meaning no text background.')
@@ -221,6 +229,7 @@ def parse_run_config():
     text_config = TextConfig(text_type=args.text_type,
                              position=args.text_position,
                              color=args.text_color,
+                             font=args.text_font,
                              background_opacity=args.text_background_opacity,
                              date_format=args.text_date_format,
                              height_ratio=args.text_height_ratio)
@@ -229,8 +238,8 @@ def parse_run_config():
                                          sort=args.sort,
                                          text_config=text_config)
     matrix_config = MatrixConfig(columns_num=columns_num,
-                               border_width_ratio=args.border_width_ratio,
-                               border_color=args.border_color)
+                                 border_width_ratio=args.border_width_ratio,
+                                 border_color=args.border_color)
 
     return RunConfig(input_images=input_images,
                      output_image_path=args.output_image,
