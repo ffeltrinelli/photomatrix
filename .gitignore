@@ -11,3 +11,7 @@ dist
 build
 __pycache__
 photomatrix.egg-info
+.python-version
+
+# Tests
+tests/integration/actual

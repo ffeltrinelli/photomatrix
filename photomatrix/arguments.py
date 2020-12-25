@@ -4,6 +4,7 @@ import os
 import re
 from enum import Enum
 from math import ceil, sqrt
+from pathlib import Path
 from PIL import Image
 from fonts.ttf import SourceSansProSemibold as DefaultFont
 
@@ -164,11 +165,11 @@ def hexadecimal_color(string_value):
     return string_value
 
 
-def parse_arguments():
+def parse_arguments(args):
     parser = argparse.ArgumentParser(prog='photomatrix', description='Concat photos together in a matrix.')
     parser.add_argument('input_images',
                         help='the path to the images to be processed')
-    parser.add_argument('output_image',
+    parser.add_argument('output_image', type=Path,
                         help='the image resulting from the processing')
     parser.add_argument('--columns-num', type=int,
                         help='the number of columns in the matrix (otherwise a sensible default will be found)')
@@ -218,11 +219,11 @@ def parse_arguments():
                              'Must be a decimal number between 0 and 1. '
                              'For example a value of 0.1 means that the text height is 10%% of the image height. '
                              'Defaults to 0.2.')
-    return parser.parse_args()
+    return parser.parse_args(args)
 
 
-def parse_run_config():
-    args = parse_arguments()
+def parse_run_config(args):
+    args = parse_arguments(args)
 
     input_images = load_images(args.input_images)
     columns_num = args.columns_num if args.columns_num is not None else best_columns_num(input_images)
