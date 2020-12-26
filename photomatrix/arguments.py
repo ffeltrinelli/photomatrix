@@ -80,9 +80,19 @@ class TextPosition(BaseEnum):
     center = 'center'
 
 
-def load_images(images_path):
-    input_files = [f for f in glob.glob(images_path)]
-    return list(map(lambda f: Image.open(f), input_files))
+def file_paths(glob_pattern):
+    try:
+        paths = glob.glob(glob_pattern)
+    except Exception as e:
+        raise argparse.ArgumentTypeError(f'Failed to parse pattern "{glob_pattern}": {e}')
+    else:
+        if not paths:
+            raise argparse.ArgumentTypeError(f'No files found with pattern "{glob_pattern}"')
+        return paths
+
+
+def load_images(image_paths):
+    return list(map(lambda f: Image.open(f), image_paths))
 
 
 def best_columns_num(images):
@@ -167,8 +177,9 @@ def hexadecimal_color(string_value):
 
 def parse_arguments(args):
     parser = argparse.ArgumentParser(prog='photomatrix', description='Concat photos together in a matrix.')
-    parser.add_argument('input_images',
-                        help='the path to the images to be processed')
+    parser.add_argument('input_images', type=file_paths,
+                        help='the path to the images to be processed.'
+                             'Can contain *, ?, and character ranges expressed with [].')
     parser.add_argument('output_image', type=Path,
                         help='the image resulting from the processing')
     parser.add_argument('--columns-num', type=int,
