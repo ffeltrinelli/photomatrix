@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="photomatrix",
-    version="0.0.3",
+    version="0.0.4",
     author="Francesco Feltrinelli",
     description="Concat photos together in a matrix",
     long_description=long_description,

@@ -8,6 +8,9 @@ INTEGRATION_TESTS_DIR = Path(__file__).parent
 class ImagePaths:
     """Build paths to test images."""
 
+    def __init__(self, tmp_path):
+        self.tmp_path = tmp_path
+
     @staticmethod
     def abs_path(relative_path):
         """Given a path relative to the integration tests folder, return its
@@ -21,19 +24,18 @@ class ImagePaths:
         return ImagePaths.abs_path(Path('input') / relative_path)
 
     @staticmethod
-    def actual(relative_path):
-        """Return the absolute path to an image in the actual folder"""
-        return ImagePaths.abs_path(Path('actual') / relative_path)
-
-    @staticmethod
     def expected(relative_path):
         """Return the absolute path to an image in the expected folder"""
         return ImagePaths.abs_path(Path('expected') / relative_path)
 
+    def actual(self, relative_path):
+        """Return the absolute path to an image in the actual folder"""
+        return self.tmp_path / 'actual' / relative_path
+
 
 @pytest.fixture
-def img_paths():
-    return ImagePaths()
+def img_paths(tmp_path):
+    return ImagePaths(tmp_path)
 
 
 class ImageDiff:
@@ -41,7 +43,7 @@ class ImageDiff:
 
     @staticmethod
     def assert_equal(actual_img_path, expected_img_path):
-        """Checks whether the actual image produced by the program is equal to
+        """Check whether the actual image produced by the program is equal to
         a known expected image.
         """
         actual_img = Image.open(actual_img_path).convert('RGB')
