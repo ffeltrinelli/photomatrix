@@ -103,3 +103,11 @@ photomatrix "data/input/*.jpg" data/output/matrix_sort_text.jpg --sort filename_
 resulting in:
 
 <img src="data/output/matrix_sort_text.jpg?raw=true" width="600">
+
+# Integration Tests
+
+Run the integration tests with:
+
+```
+python3 -m pytest tests/integration
+```
