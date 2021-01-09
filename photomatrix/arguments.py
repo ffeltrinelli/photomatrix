@@ -7,6 +7,11 @@ from math import ceil, sqrt
 from pathlib import Path
 from PIL import Image
 from fonts.ttf import SourceSansProSemibold as DefaultFont
+try:
+    from importlib import metadata
+except ImportError:
+    # on Python <3.8 use importlib-metadata package
+    import importlib_metadata as metadata
 
 
 class RunConfig:
@@ -177,6 +182,7 @@ def hexadecimal_color(string_value):
 
 def parse_arguments(args):
     parser = argparse.ArgumentParser(prog='photomatrix', description='Concat photos together in a matrix.')
+    parser.add_argument('--version', action='version', version=metadata.version(parser.prog))
     parser.add_argument('input_images', type=file_paths,
                         help='the path to the images to be processed. '
                              'Can contain *, ?, and character ranges expressed with [].')
